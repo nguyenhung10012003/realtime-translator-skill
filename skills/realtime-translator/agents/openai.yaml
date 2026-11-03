@@ -1,0 +1,4 @@
+interface:
+  display_name: 'Realtime Translator'
+  short_description: 'Translate audio and live app sound, with no API key'
+  default_prompt: 'Translate this audio file into Vietnamese and make subtitles.'

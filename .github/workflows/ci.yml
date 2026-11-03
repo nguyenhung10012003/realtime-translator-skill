@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run format:check
+        if: runner.os == 'Linux'
+      - run: npm run typecheck
+      - run: npm test
+      - name: Bundle is up to date
+        if: runner.os == 'Linux'
+        run: |
+          npm run build
+          git diff --exit-code skills/realtime-translator/scripts/translator.cjs
+      - name: Install ffmpeg
+        if: runner.os == 'macOS'
+        run: brew install ffmpeg
+      - name: End-to-end tests
+        if: runner.os == 'macOS'
+        run: npm run test:e2e
+      - name: Compile the capture helper
+        if: runner.os == 'macOS'
+        run: bash skills/realtime-translator/native/macos/build.sh

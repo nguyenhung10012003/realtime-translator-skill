@@ -1,0 +1,32 @@
+{
+  "name": "realtime-translator-skill",
+  "version": "0.1.0",
+  "description": "Agent skill that translates speech in audio using the agent itself as translator, with local speech recognition. No API keys. Works with Claude Code, Codex, and other SKILL.md agents.",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest run skills/",
+    "test:e2e": "npm run build && vitest run test/",
+    "check": "npm run format:check && npm run typecheck && npm test && npm run test:e2e",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "@anthropic-ai/sdk": "^1.4.0",
+    "@types/node": "^22.0.0",
+    "@types/ws": "^8.18.2",
+    "esbuild": "^0.28.1",
+    "prettier": "^3.3.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.8",
+    "ws": "^8.22.1"
+  },
+  "optionalDependencies": {
+    "application-loopback": "^1.2.7"
+  }
+}

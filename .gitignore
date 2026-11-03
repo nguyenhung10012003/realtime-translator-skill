@@ -1,0 +1,7 @@
+node_modules
+.DS_Store
+
+# Machine-specific, produced by scripts/setup.mjs inside the skill
+skills/realtime-translator/bin/
+skills/realtime-translator/models/
+skills/realtime-translator/node_modules/
